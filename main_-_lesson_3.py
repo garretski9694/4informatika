@@ -22,9 +22,16 @@ class TextAnalyser:
         except FileNotFoundError:
             raise Exception(f"Файл {file_name} не найден!")
         size = os.getsize(file_name)
+        if size == 0:
+            raise Exception(f"Файл {file_name} пустой!")
         print(size)
-        # TODO: бросить исключение, если прочитанный файл оказался пуст
-
+        
+    def prepare_text(self) -> None:
+        # zamena texta
+        self.text = self.text.lower()
+        for char in punctuation.replace("-", "—"):
+            self.text = self.text.replace(char, "")
+        self.words = self.text.split()
 
     def print_text(self):
         """ выводит строку текста на экран """
